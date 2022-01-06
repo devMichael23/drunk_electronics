@@ -1,3 +1,5 @@
+from Memory import Memory
+
 class Steps:
     def __init__(self, up=None, down=None, left=None, right=None):
         self.up = up

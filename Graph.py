@@ -15,6 +15,10 @@ class Steps:
 
 class Node:
     def __init__(self, id=None, steps=None, is_electronic=False):
+        if id is None:
+            id = [0, 0]
+        if steps is None:
+            steps = [0, 0, 0, 0]
         self.id = type("", (), dict(x=id[0], y=id[1]))()
         self.steps = Steps(steps[0], steps[1], steps[2], steps[3])
         self.isElectronic = is_electronic

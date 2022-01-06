@@ -11,15 +11,16 @@ class Steps:
 
 
 class Node:
-    def __init__(self, id=None, steps=None, is_electronic=False, end=False):
+    def __init__(self, id=None, steps=None, is_electronic=False, end=False, fuel=False):
         if id is None:
             id = [0, 0]
         if steps is None:
             steps = [0, 0, 0, 0]
-        self.id = type("", (), dict(x=id[1], y=id[0]))()
-        self.steps = Steps(steps[0], steps[1], steps[2], steps[3])
-        self.isElectronic = is_electronic
-        self.end = end
+        self.__id = type("", (), dict(y=id[0], x=id[1]))()
+        self.__steps = Steps(steps[0], steps[1], steps[2], steps[3])
+        self.__isElectronic = is_electronic
+        self.__end = end
+        self.__fuel = fuel
 
     def __str__(self):
         id = '{\n\tid: {' + str(self.__id.x) + '; ' + str(self.__id.y) + '},\n\t'
@@ -32,27 +33,29 @@ class Node:
 
 class Graph:
     def __init__(self, memory):
-        self.nodes = []
-        self.world = memory.get_silicon_world()
+        self.__nodes = [Node()]
+        self.__world = memory.get_silicon_world()
         self.create_graph()
 
     def __str__(self):
         s = ''
-        for i in self.nodes:
+        for i in self.__nodes:
             s += str(i)
         return s
 
     def create_graph(self):
-        for i in range(0, self.world.get_hight()):
-            for j in range(0, self.world.get_weight()):
-                if self.world.get_map_atom(i, j) == 0:
+        for i in range(0, self.__world.get_hight()):
+            for j in range(0, self.__world.get_weight()):
+                if self.__world.get_map_atom(i, j) == 0:
                     continue
-                elif self.world.get_map_atom(i, j) == 1:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j)))
-                elif self.world.get_map_atom(i, j) == 3:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j), end=True))
-                elif self.world.get_map_atom(i, j) == 5:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j), is_electronic=True))
+                elif self.__world.get_map_atom(i, j) == 1:
+                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j)))
+                elif self.__world.get_map_atom(i, j) == 2:
+                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), fuel=True))
+                elif self.__world.get_map_atom(i, j) == 3:
+                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), end=True))
+                elif self.__world.get_map_atom(i, j) == 5:
+                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True))
 
     def get_barrier(self, wold, h, w):
         try:

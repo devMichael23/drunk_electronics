@@ -49,20 +49,22 @@ class SiliconWorld:
     def set_params_to_map(self, x, y, param):
         self.SiliconWorld[y][x] = param
 
-    def print_map(self):
-        for i in range(0, self.h):
-            for j in range(0, self.w):
-                if self.SiliconWorld[i][j] == 5:
-                    print(colored("|♌|", 'magenta', attrs=['bold']), end='')
-                elif self.SiliconWorld[i][j] == 3:
-                    print(colored("|E|", 'yellow', attrs=['bold']), end='')
-                elif self.SiliconWorld[i][j] == 2:
-                    print(colored("|Ω|", 'red'), end='')
-                elif self.SiliconWorld[i][j] == 1:
-                    print("|.|", end="")
-                elif self.SiliconWorld[i][j] == 0:
-                    print(colored("|#|", 'green'), end='')
-            print("\n", end="")
+    def __str__(self):
+        result = ''
+        for i in range(0, self.__h):
+            for j in range(0, self.__w):
+                if self.__SiliconWorld[i][j] == 5:
+                    result += colored("|♌|", 'magenta', attrs=['bold'])
+                elif self.__SiliconWorld[i][j] == 3:
+                    result += colored("|E|", 'yellow', attrs=['bold'])
+                elif self.__SiliconWorld[i][j] == 2:
+                    result += colored("|Ω|", 'red')
+                elif self.__SiliconWorld[i][j] == 1:
+                    result += "|.|"
+                elif self.__SiliconWorld[i][j] == 0:
+                    result += colored("|#|", 'green')
+            result += '\n'
+        return result
 
     def get_weight(self):
         return self.w

@@ -5,7 +5,7 @@ class Steps:
         self.left = left
         self.right = right
 
-    def get_steps(self):
+    def __str__(self):
         return '{\n\t\t\'up\':\t  ' + str(self.up) + ',\n\t\t\'down\':\t  ' + str(self.down) + ',\n\t\t\'left\':\t  ' \
                + str(self.left) + ',\n\t\t\'right\':  ' + str(self.right) + "\n\t}"
 
@@ -22,10 +22,11 @@ class Node:
         self.end = end
 
     def __str__(self):
-        id = '{\n\tid: {' + str(self.id.x) + '; ' + str(self.id.y) + '},\n\t'
-        boolean = 'isElectronic: ' + str(self.isElectronic) + '\n\t'
-        end = 'end: ' + str(self.end) + '\n\t'
-        s = id + boolean + end + self.steps.get_steps() + '\n}\n'
+        id = '{\n\tid: {' + str(self.__id.x) + '; ' + str(self.__id.y) + '},\n\t'
+        boolean = 'isElectronic: ' + str(self.__isElectronic) + '\n\t'
+        end = 'end: ' + str(self.__end) + '\n\t'
+        fuel = 'fuel: ' + str(self.__fuel) + '\n\t'
+        s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
         return s
 
 

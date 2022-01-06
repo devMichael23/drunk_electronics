@@ -11,6 +11,7 @@ class Steps:
         return '{\n\t\'up\':\t ' + str(self.up) + ',\n\t\'down\':\t ' + str(self.down) + ',\n\t\'left\':\t  ' \
                + str(self.left) + ',\n\t\'right\': ' + str(self.right) + "\n}"
 
+
 class Node:
     def __init__(self, steps=None, is_electronic=False):
         self.steps = Steps(steps[0], steps[1], steps[2], steps[3])
@@ -19,3 +20,11 @@ class Node:
     def __str__(self):
         s = self.steps.get_steps() + "\n" + str(self.isElectronic)
         return s
+
+
+class Graph:
+    def __init__(self):
+        self.length = 0
+
+    def __len__(self):
+        return self.length

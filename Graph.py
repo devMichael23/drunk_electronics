@@ -30,6 +30,18 @@ class Node:
         s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
         return s
 
+    def get_steps(self):
+        return self.__steps
+
+    def get_is_fuel(self):
+        return self.__fuel
+
+    def get_is_end(self):
+        return self.__end
+
+    def get_is_electronic(self):
+        return self.__isElectronic
+
 
 class Graph:
     def __init__(self, memory):
@@ -94,4 +106,21 @@ class Graph:
         return [up, down, left, right]
 
     def get_node(self, id):
-        return self.nodes[id]
+        return self.__nodes[id]
+
+    def get_fuels(self):
+        result = []
+        for i in self.__nodes:
+            if i.get_is_fuel():
+                result.append(i)
+        return result
+
+    def get_end_node(self):
+        for i in self.__nodes:
+            if i.get_is_end():
+                return i
+
+    def get_electronic_node(self):
+        for i in self.__nodes:
+            if i.get_is_electronic():
+                return i

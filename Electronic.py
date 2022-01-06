@@ -22,4 +22,3 @@ class Electronic:
             'x': x,
             'y': y
         }
-

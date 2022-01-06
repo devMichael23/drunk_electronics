@@ -3,8 +3,8 @@ from Electronic import Electronic
 
 
 class Memory:
-    def __init__(self):
-        self.silicon_world = SiliconWorld()
+    def __init__(self, w, h):
+        self.silicon_world = SiliconWorld(w, h)
         self.electronic = Electronic()
         self.silicon_world.set_params_to_map(self.electronic.location['x'], self.electronic.location['y'], 5)
 

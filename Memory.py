@@ -23,3 +23,9 @@ class Memory:
 
     def update_electronic_pos(self):
         self.silicon_world.set_params_to_map(self.electronic.location['x'], self.electronic.location['y'], 5)
+
+    def get_silicon_world(self):
+        return self.silicon_world
+
+    def get_electronic(self):
+        return self.electronic

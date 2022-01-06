@@ -8,7 +8,7 @@ class Memory:
         self.electronic = Electronic()
         self.silicon_world.set_params_to_map(self.electronic.location.x, self.electronic.location.y, 5)
 
-    def move_electronic(self, x, y):
+    def move_electronic(self, y, x):
         if self.electronic.fuel.need:
             if self.electronic.fuel.bank > 0:
                 self.electronic.fuel.bank = self.electronic.fuel.bank - 1

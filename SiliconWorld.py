@@ -47,7 +47,7 @@ class SiliconWorld:
         self.SiliconWorld[end_x][end_y] = 3
 
     def set_params_to_map(self, x, y, param):
-        self.SiliconWorld[x][y] = param
+        self.SiliconWorld[y][x] = param
 
     def print_map(self):
         for i in range(0, self.h):

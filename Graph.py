@@ -1,6 +1,3 @@
-from Memory import *
-
-
 class Steps:
     def __init__(self, up=None, down=None, left=None, right=None):
         self.up = up
@@ -19,7 +16,7 @@ class Node:
             id = [0, 0]
         if steps is None:
             steps = [0, 0, 0, 0]
-        self.id = type("", (), dict(x=id[0], y=id[1]))()
+        self.id = type("", (), dict(x=id[1], y=id[0]))()
         self.steps = Steps(steps[0], steps[1], steps[2], steps[3])
         self.isElectronic = is_electronic
         self.end = end
@@ -28,13 +25,15 @@ class Node:
         id = '{\n\tid: {' + str(self.id.x) + '; ' + str(self.id.y) + '},\n\t'
         boolean = 'isElectronic: ' + str(self.isElectronic) + '\n\t'
         end = 'end: ' + str(self.end) + '\n\t'
-        s = id + boolean + end + self.steps.get_steps() + '\n}'
+        s = id + boolean + end + self.steps.get_steps() + '\n}\n'
         return s
 
 
 class Graph:
-    def __init__(self):
+    def __init__(self, memory):
         self.nodes = []
+        self.world = memory.get_silicon_world()
+        self.create_graph()
 
     def __str__(self):
         s = ''
@@ -42,29 +41,32 @@ class Graph:
             s += str(i)
         return s
 
-    def create_graph(self, memory: Memory):
-        world = memory.get_silicon_world()
-        for i in range(0, world.get_hight()):
-            for j in range(0, world.get_weight()):
-                if world.get_map_atom(i, j) == 0:
+    def create_graph(self):
+        for i in range(0, self.world.get_hight()):
+            for j in range(0, self.world.get_weight()):
+                if self.world.get_map_atom(i, j) == 0:
                     continue
-                elif world.get_map_atom(i, j) == 1:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(world, i, j)))
-                elif world.get_map_atom(i, j) == 3:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(world, i, j), end=True))
-                elif world.get_map_atom(i, j) == 5:
-                    self.nodes.append(Node([i, j], steps=self.get_barrier(world, i, j), is_electronic=True))
+                elif self.world.get_map_atom(i, j) == 1:
+                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j)))
+                elif self.world.get_map_atom(i, j) == 3:
+                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j), end=True))
+                elif self.world.get_map_atom(i, j) == 5:
+                    self.nodes.append(Node([i, j], steps=self.get_barrier(self.world, i, j), is_electronic=True))
 
-    def get_barrier(self, wold: SiliconWorld, h, w):
+    def get_barrier(self, wold, h, w):
         try:
-            if wold.get_map_atom(h - 1, w) == 0:
+            if h - 1 < 0:
+                up = 0
+            elif wold.get_map_atom(h - 1, w) == 0:
                 up = 0
             else:
                 up = 1
         except Exception:
             up = 0
         try:
-            if wold.get_map_atom(h, w-1) == 0:
+            if w - 1 < 0:
+                left = 0
+            elif wold.get_map_atom(h, w-1) == 0:
                 left = 0
             else:
                 left = 1
@@ -86,3 +88,6 @@ class Graph:
             right = 0
 
         return [up, down, left, right]
+
+    def get_node(self, id):
+        return self.nodes[id]

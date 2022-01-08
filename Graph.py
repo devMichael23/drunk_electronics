@@ -22,13 +22,16 @@ class Node:
         self.__end = end
         self.__fuel = fuel
 
-    def __str__(self):
-        id = '{\n\tid: {' + str(self.__id.x) + '; ' + str(self.__id.y) + '},\n\t'
+    def __repr__(self):
+        id = '{\n\tid: [' + str(self.__id.y) + ', ' + str(self.__id.x) + '],\n\t'
         boolean = 'isElectronic: ' + str(self.__isElectronic) + '\n\t'
         end = 'end: ' + str(self.__end) + '\n\t'
         fuel = 'fuel: ' + str(self.__fuel) + '\n\t'
         s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
         return s
+
+    def get_id(self):
+        return self.__id
 
     def get_steps(self):
         return self.__steps
@@ -45,19 +48,40 @@ class Node:
 
 class Graph:
     def __init__(self, memory):
-        self.__nodes = [Node()]
+        self.__nodes = []
         self.__world = memory.get_silicon_world()
         self.create_graph()
 
-    def __str__(self):
-        s = ''
-        for i in self.__nodes:
-            s += str(i)
+    def __repr__(self):
+        length = len(self.__nodes)
+        s = '[\n'
+        for i in range(0, length-1):
+            id = '\t{\n\t\tid: [' + str(self.__nodes[i].get_id().y) + ', ' \
+                 + str(self.__nodes[i].get_id().x) + '],\n\t\t'
+            boolean = 'isElectronic: ' + str(self.__nodes[i].get_is_electronic()) + '\n\t\t'
+            end = 'end: ' + str(self.__nodes[i].get_is_end()) + '\n\t\t'
+            fuel = 'fuel: ' + str(self.__nodes[i].get_is_fuel()) + '\n\t\t'
+            steps = '{\n\t\t\t\'up\':\t  ' + str(self.__nodes[i].get_steps().up) + ',\n\t\t\t\'down\':\t  ' \
+                    + str(self.__nodes[i].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
+                    + str(self.__nodes[i].get_steps().left) \
+                    + ',\n\t\t\t\'right\':  ' + str(self.__nodes[i].get_steps().right) + "\n\t\t}"
+            s += id + boolean + end + fuel + steps + '\n\t},\n'
+        id = '\t{\n\t\tid: [' + str(self.__nodes[length-1].get_id().y) + ', ' \
+             + str(self.__nodes[length-1].get_id().x) + '],\n\t\t'
+        boolean = 'isElectronic: ' + str(self.__nodes[length-1].get_is_electronic()) + '\n\t\t'
+        end = 'end: ' + str(self.__nodes[length-1].get_is_end()) + '\n\t\t'
+        fuel = 'fuel: ' + str(self.__nodes[length-1].get_is_fuel()) + '\n\t\t'
+        steps = '{\n\t\t\t\'up\':\t  ' + str(self.__nodes[length-1].get_steps().up) + ',\n\t\t\t\'down\':\t  ' \
+                + str(self.__nodes[length-1].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
+                + str(self.__nodes[length-1].get_steps().left) \
+                + ',\n\t\t\t\'right\':  ' + str(self.__nodes[length-1].get_steps().right) + "\n\t\t}"
+        s += id + boolean + end + fuel + steps + '\n\t}\n'
+        s += ']'
         return s
 
     def create_graph(self):
-        for i in range(0, self.__world.get_hight()):
-            for j in range(0, self.__world.get_weight()):
+        for i in range(0, self.__world.get_height()):
+            for j in range(0, self.__world.get_width()):
                 if self.__world.get_map_atom(i, j) == 0:
                     continue
                 elif self.__world.get_map_atom(i, j) == 1:

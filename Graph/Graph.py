@@ -1,49 +1,4 @@
-class Steps:
-    def __init__(self, up=None, down=None, left=None, right=None):
-        self.up = up
-        self.down = down
-        self.left = left
-        self.right = right
-
-    def __str__(self):
-        return '{\n\t\t\'up\':\t  ' + str(self.up) + ',\n\t\t\'down\':\t  ' + str(self.down) + ',\n\t\t\'left\':\t  ' \
-               + str(self.left) + ',\n\t\t\'right\':  ' + str(self.right) + "\n\t}"
-
-
-class Node:
-    def __init__(self, id=None, steps=None, is_electronic=False, end=False, fuel=False):
-        if id is None:
-            id = [0, 0]
-        if steps is None:
-            steps = [0, 0, 0, 0]
-        self.__id = type("", (), dict(y=id[0], x=id[1]))()
-        self.__steps = Steps(steps[0], steps[1], steps[2], steps[3])
-        self.__isElectronic = is_electronic
-        self.__end = end
-        self.__fuel = fuel
-
-    def __repr__(self):
-        id = '{\n\tid: [' + str(self.__id.y) + ', ' + str(self.__id.x) + '],\n\t'
-        boolean = 'isElectronic: ' + str(self.__isElectronic) + '\n\t'
-        end = 'end: ' + str(self.__end) + '\n\t'
-        fuel = 'fuel: ' + str(self.__fuel) + '\n\t'
-        s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
-        return s
-
-    def get_id(self):
-        return self.__id
-
-    def get_steps(self):
-        return self.__steps
-
-    def get_is_fuel(self):
-        return self.__fuel
-
-    def get_is_end(self):
-        return self.__end
-
-    def get_is_electronic(self):
-        return self.__isElectronic
+from Graph.Node import Node
 
 
 class Graph:
@@ -55,7 +10,7 @@ class Graph:
     def __repr__(self):
         length = len(self.__nodes)
         s = '[\n'
-        for i in range(0, length-1):
+        for i in range(0, length - 1):
             id = '\t{\n\t\tid: [' + str(self.__nodes[i].get_id().y) + ', ' \
                  + str(self.__nodes[i].get_id().x) + '],\n\t\t'
             boolean = 'isElectronic: ' + str(self.__nodes[i].get_is_electronic()) + '\n\t\t'
@@ -66,15 +21,15 @@ class Graph:
                     + str(self.__nodes[i].get_steps().left) \
                     + ',\n\t\t\t\'right\':  ' + str(self.__nodes[i].get_steps().right) + "\n\t\t}"
             s += id + boolean + end + fuel + steps + '\n\t},\n'
-        id = '\t{\n\t\tid: [' + str(self.__nodes[length-1].get_id().y) + ', ' \
-             + str(self.__nodes[length-1].get_id().x) + '],\n\t\t'
-        boolean = 'isElectronic: ' + str(self.__nodes[length-1].get_is_electronic()) + '\n\t\t'
-        end = 'end: ' + str(self.__nodes[length-1].get_is_end()) + '\n\t\t'
-        fuel = 'fuel: ' + str(self.__nodes[length-1].get_is_fuel()) + '\n\t\t'
-        steps = '{\n\t\t\t\'up\':\t  ' + str(self.__nodes[length-1].get_steps().up) + ',\n\t\t\t\'down\':\t  ' \
-                + str(self.__nodes[length-1].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
-                + str(self.__nodes[length-1].get_steps().left) \
-                + ',\n\t\t\t\'right\':  ' + str(self.__nodes[length-1].get_steps().right) + "\n\t\t}"
+        id = '\t{\n\t\tid: [' + str(self.__nodes[length - 1].get_id().y) + ', ' \
+             + str(self.__nodes[length - 1].get_id().x) + '],\n\t\t'
+        boolean = 'isElectronic: ' + str(self.__nodes[length - 1].get_is_electronic()) + '\n\t\t'
+        end = 'end: ' + str(self.__nodes[length - 1].get_is_end()) + '\n\t\t'
+        fuel = 'fuel: ' + str(self.__nodes[length - 1].get_is_fuel()) + '\n\t\t'
+        steps = '{\n\t\t\t\'up\':\t  ' + str(self.__nodes[length - 1].get_steps().up) + ',\n\t\t\t\'down\':\t  ' \
+                + str(self.__nodes[length - 1].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
+                + str(self.__nodes[length - 1].get_steps().left) \
+                + ',\n\t\t\t\'right\':  ' + str(self.__nodes[length - 1].get_steps().right) + "\n\t\t}"
         s += id + boolean + end + fuel + steps + '\n\t}\n'
         s += ']'
         return s
@@ -106,21 +61,21 @@ class Graph:
         try:
             if w - 1 < 0:
                 left = 0
-            elif wold.get_map_atom(h, w-1) == 0:
+            elif wold.get_map_atom(h, w - 1) == 0:
                 left = 0
             else:
                 left = 1
         except Exception:
             left = 0
         try:
-            if wold.get_map_atom(h+1, w) == 0:
+            if wold.get_map_atom(h + 1, w) == 0:
                 down = 0
             else:
                 down = 1
         except Exception:
             down = 0
         try:
-            if wold.get_map_atom(h, w+1) == 0:
+            if wold.get_map_atom(h, w + 1) == 0:
                 right = 0
             else:
                 right = 1

@@ -1,5 +1,5 @@
-from SiliconWorld import SiliconWorld
-from Electronic import Electronic
+from World.SiliconWorld import SiliconWorld
+from World.Electronic import Electronic
 
 
 class Memory:

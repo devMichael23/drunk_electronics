@@ -7,6 +7,9 @@ class Graph:
         self.__world = memory.get_silicon_world()
         self.create_graph()
 
+    def __len__(self):
+        return len(self.__nodes)
+
     def __repr__(self):
         length = len(self.__nodes)
         s = '[\n'
@@ -84,8 +87,16 @@ class Graph:
 
         return [up, down, left, right]
 
+    def get_graph(self):
+        return self.__nodes
+
     def get_node(self, id):
         return self.__nodes[id]
+
+    def get_node_from_id(self, x, y):
+        for i in self.__nodes:
+            if i.get_id().x == x and i.get_id().y == y:
+                return i
 
     def get_fuels(self):
         result = []

@@ -21,6 +21,9 @@ class Node:
         s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
         return s
 
+    def __iter__(self):
+        return self.__id
+
     def get_id(self):
         return self.__id
 

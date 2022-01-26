@@ -15,11 +15,12 @@ class Node:
         self.__fuel = fuel
 
     def __repr__(self):
-        id = '{\n\tid: [' + str(self.__id.y) + ', ' + str(self.__id.x) + '],\n\t'
+        num = '{\n\tnum: ' + str(self.__number) + '\n\t'
+        id = 'id: [' + str(self.__id.y) + ', ' + str(self.__id.x) + '],\n\t'
         boolean = 'isElectronic: ' + str(self.__isElectronic) + '\n\t'
         end = 'end: ' + str(self.__end) + '\n\t'
         fuel = 'fuel: ' + str(self.__fuel) + '\n\t'
-        s = id + boolean + end + fuel + str(self.__steps) + '\n}\n'
+        s = num + id + boolean + end + fuel + str(self.__steps) + '\n}\n'
         return s
 
     def __iter__(self):

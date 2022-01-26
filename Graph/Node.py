@@ -2,7 +2,8 @@ from Graph.Steps import Steps
 
 
 class Node:
-    def __init__(self, id=None, steps=None, is_electronic=False, end=False, fuel=False):
+    def __init__(self, number=None, id=None, steps=None, is_electronic=False, end=False, fuel=False):
+        self.__number = number
         if id is None:
             id = [0, 0]
         if steps is None:
@@ -38,3 +39,6 @@ class Node:
 
     def get_is_electronic(self):
         return self.__isElectronic
+
+    def get_number(self):
+        return self.__number

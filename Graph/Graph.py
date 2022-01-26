@@ -14,7 +14,8 @@ class Graph:
         length = len(self.__nodes)
         s = '[\n'
         for i in range(0, length - 1):
-            id = '\t{\n\t\tid: [' + str(self.__nodes[i].get_id().y) + ', ' \
+            num = '\t{\n\t\tnumber: ' + str(self.__nodes[i].get_number()) + '\n\t\t'
+            id = 'id: [' + str(self.__nodes[i].get_id().y) + ', ' \
                  + str(self.__nodes[i].get_id().x) + '],\n\t\t'
             boolean = 'isElectronic: ' + str(self.__nodes[i].get_is_electronic()) + '\n\t\t'
             end = 'end: ' + str(self.__nodes[i].get_is_end()) + '\n\t\t'
@@ -23,8 +24,9 @@ class Graph:
                     + str(self.__nodes[i].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
                     + str(self.__nodes[i].get_steps().left) \
                     + ',\n\t\t\t\'right\':  ' + str(self.__nodes[i].get_steps().right) + "\n\t\t}"
-            s += id + boolean + end + fuel + steps + '\n\t},\n'
-        id = '\t{\n\t\tid: [' + str(self.__nodes[length - 1].get_id().y) + ', ' \
+            s += num + id + boolean + end + fuel + steps + '\n\t},\n'
+        num = '\t{\n\t\tnumber: ' + str(self.__nodes[length - 1].get_number()) + '\n\t\t'
+        id = 'id: [' + str(self.__nodes[length - 1].get_id().y) + ', ' \
              + str(self.__nodes[length - 1].get_id().x) + '],\n\t\t'
         boolean = 'isElectronic: ' + str(self.__nodes[length - 1].get_is_electronic()) + '\n\t\t'
         end = 'end: ' + str(self.__nodes[length - 1].get_is_end()) + '\n\t\t'
@@ -33,23 +35,28 @@ class Graph:
                 + str(self.__nodes[length - 1].get_steps().down) + ',\n\t\t\t\'left\':\t  ' \
                 + str(self.__nodes[length - 1].get_steps().left) \
                 + ',\n\t\t\t\'right\':  ' + str(self.__nodes[length - 1].get_steps().right) + "\n\t\t}"
-        s += id + boolean + end + fuel + steps + '\n\t}\n'
+        s += num + id + boolean + end + fuel + steps + '\n\t}\n'
         s += ']'
         return s
 
     def create_graph(self):
+        num = 0
         for i in range(0, self.__world.get_height()):
             for j in range(0, self.__world.get_width()):
                 if self.__world.get_map_atom(i, j) == 0:
                     continue
                 elif self.__world.get_map_atom(i, j) == 1:
-                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j)))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j)))
+                    num += 1
                 elif self.__world.get_map_atom(i, j) == 2:
-                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), fuel=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), fuel=True))
+                    num += 1
                 elif self.__world.get_map_atom(i, j) == 3:
-                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), end=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), end=True))
+                    num += 1
                 elif self.__world.get_map_atom(i, j) == 5:
-                    self.__nodes.append(Node([i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True))
+                    num += 1
 
     def get_barrier(self, wold, h, w):
         try:

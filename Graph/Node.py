@@ -13,6 +13,7 @@ class Node:
         self.__isElectronic = is_electronic
         self.__end = end
         self.__fuel = fuel
+        self.__prev = None
 
     def __repr__(self):
         num = '{\n\tnum: ' + str(self.__number) + '\n\t'
@@ -43,3 +44,9 @@ class Node:
 
     def get_number(self):
         return self.__number
+
+    def set_prev(self, prev):
+        self.__prev = prev
+
+    def get_prev(self):
+        return self.__prev

@@ -121,3 +121,6 @@ class Graph:
         for i in self.__nodes:
             if i.get_is_electronic():
                 return i
+
+    def add_node(self, node):
+        self.__nodes.append(node)

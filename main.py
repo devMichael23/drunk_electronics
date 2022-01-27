@@ -1,12 +1,15 @@
-from Memory import *
+from World.Memory import *
+from Graph.Graph import Graph
+from Api.getters import *
 
-mem = Memory()
-world = SiliconWorld(50, 50)
-electronic = Electronic()
-mem.electronic = electronic
-mem.silicon_world = world
-mem.update_electronic_pos()
-mem.silicon_world.print_map()
-print('\n\n\n\n\n')
-mem.move_electronic(5, 5)
-mem.silicon_world.print_map()
+mem = Memory(25, 25)
+g = Graph(mem)
+copy = mem
+print(mem.get_silicon_world())
+
+# moves = get_nodes_to_move(g)
+
+path = get_path(g, mem)
+
+
+print(mem.get_silicon_world())

@@ -14,10 +14,11 @@ def get_nodes_to_move_from_electronic(graph):
                 result.append(graph.get_node_from_id(i.get_id().x - 1, i.get_id().y))
             if i.get_steps().right:
                 result.append(graph.get_node_from_id(i.get_id().x + 1, i.get_id().y))
+            break
     return result
 
 
-def get_nodes_to_move(graph: Graph, node: Node) -> list[Node]:
+def get_nodes_to_move(graph, node):
     result = []
     if node.get_steps().up:
         result.append(graph.get_node_from_id(node.get_id().x, node.get_id().y - 1))
@@ -37,21 +38,29 @@ def get_removes_list(reduced, deductible):
     return reduced
 
 
-def get_path(graph: Graph):
-    reachable = graph
+def get_path(graph: Graph, memory: Memory):
+    reachable = get_nodes_to_move_from_electronic(graph)
     explored = []
+    index = 0
     while reachable:
-        node = choose_node(get_nodes_to_move(reachable, reachable.get_node(0)))
+        node = choose_node(reachable, graph.get_end_node())
 
         if node == graph.get_end_node():
             return build_path(graph.get_end_node())
 
-        reachable.remove_element(node)
+        reachable.remove(node)
         explored.append(node)
+        memory.move_electronic(node.get_id().x, node.get_id().y, graph, node)
 
-        new_reachable = get_removes_list(get_nodes_to_move(reachable, node), explored)
+        new_reachable = get_removes_list(get_nodes_to_move_from_electronic(graph), explored)
+
         for moves in new_reachable:
             if moves not in reachable:
+                reachable.append(moves)
+
+            if node.get_cost() + 1 < moves.get_cost():
                 moves.set_prev(node)
+                moves.set_cost(node.get_cost() + 1)
+        index += 1
 
     return None

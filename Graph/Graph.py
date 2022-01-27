@@ -49,13 +49,13 @@ class Graph:
                     self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j)))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 2:
-                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), fuel=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), fuel=True, cost=1))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 3:
                     self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), end=True))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 5:
-                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True, cost=0))
                     num += 1
 
     def get_barrier(self, wold, h, w):
@@ -124,3 +124,12 @@ class Graph:
 
     def add_node(self, node):
         self.__nodes.append(node)
+
+    def search_node(self, node):
+        for i in self.__nodes:
+            if i == node:
+                return i
+
+    def remove_element(self, node):
+        if node in self.__nodes:
+            self.__nodes.remove(node)

@@ -2,7 +2,7 @@ from Graph.Steps import Steps
 
 
 class Node:
-    def __init__(self, number=None, id=None, steps=None, is_electronic=False, end=False, fuel=False):
+    def __init__(self, number=None, id=None, steps=None, is_electronic=False, end=False, fuel=False, cost=99999999999999):
         self.__number = number
         if id is None:
             id = [0, 0]
@@ -14,6 +14,7 @@ class Node:
         self.__end = end
         self.__fuel = fuel
         self.__prev = None
+        self.__cost = cost
 
     def __repr__(self):
         num = '{\n\tnum: ' + str(self.__number) + '\n\t'
@@ -42,6 +43,9 @@ class Node:
     def get_is_electronic(self):
         return self.__isElectronic
 
+    def set_is_electronic(self, isElectronic):
+        self.__isElectronic = isElectronic
+
     def get_number(self):
         return self.__number
 
@@ -50,3 +54,9 @@ class Node:
 
     def get_prev(self):
         return self.__prev
+
+    def set_cost(self, cost):
+        self.__cost = cost
+
+    def get_cost(self):
+        return self.__cost

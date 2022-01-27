@@ -67,6 +67,8 @@ class SiliconWorld:
                     result += "|.|"
                 elif self.__SiliconWorld[i][j] == 0:
                     result += colored("|#|", 'green')
+                elif self.__SiliconWorld[i][j] == 9:
+                    result += colored("|.|", 'cyan', attrs=['bold'])
             result += '\n'
         return result
 
@@ -78,3 +80,6 @@ class SiliconWorld:
 
     def get_map_atom(self, h, w):
         return self.__SiliconWorld[h][w]
+
+    def set_map_atom(self, h, w, param):
+        self.__SiliconWorld[h][w] = param

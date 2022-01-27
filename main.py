@@ -7,7 +7,6 @@ g = Graph(mem)
 copy = mem
 print(mem.get_silicon_world())
 
-# moves = get_nodes_to_move(g)
 
 path = get_path(g, mem)
 

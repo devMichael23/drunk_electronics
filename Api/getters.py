@@ -1,4 +1,3 @@
-from Imports.ALL_Imports import *
 from Api.paths_work import *
 
 
@@ -38,7 +37,7 @@ def get_removes_list(reduced, deductible):
     return reduced
 
 
-def get_path(graph: Graph, memory: Memory):
+def get_path(graph, memory):
     reachable = get_nodes_to_move_from_electronic(graph)
     explored = []
     index = 0

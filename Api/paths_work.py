@@ -1,6 +1,3 @@
-from Imports.ALL_Imports import *
-
-
 def distance_node_to_end(node, end):
     result = (abs(node.get_id().x - end.get_id().x) + abs(node.get_id().y - end.get_id().y))
     return result

@@ -1,22 +1,14 @@
-from World.Memory import *
+from World.Memory import Memory
 from Graph.Graph import Graph
-from Api.getters import *
+from Api.getters import get_path
 
 mem = Memory(25, 25)
 g = Graph(mem)
 copy = mem
-fdgsdfg
-
-fgsdf
 
 print(mem.get_silicon_world())
 
-dfgsdg
-dfsg
-sdfg
-sdfg
 path = get_path(g, mem)
-
 
 print(mem.get_silicon_world())
 print(path)

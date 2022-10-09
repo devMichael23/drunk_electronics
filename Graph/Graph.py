@@ -49,13 +49,16 @@ class Graph:
                     self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j)))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 2:
-                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), fuel=True, cost=1))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j),
+                                             fuel=True, cost=1))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 3:
-                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), end=True))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j),
+                                             end=True))
                     num += 1
                 elif self.__world.get_map_atom(i, j) == 5:
-                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j), is_electronic=True, cost=0))
+                    self.__nodes.append(Node(number=num, id=[i, j], steps=self.get_barrier(self.__world, i, j),
+                                             is_electronic=True, cost=0))
                     num += 1
 
     def get_barrier(self, wold, h, w):

@@ -2,7 +2,7 @@ from Graph.Steps import Steps
 
 
 class Node:
-    def __init__(self, number=None, id=None, steps=None, is_electronic=False, end=False, fuel=False, cost=99999999999999):
+    def __init__(self, number=None, id=None, steps=None, is_electronic=False, end=False,fuel=False, cost=999999999999):
         self.__number = number
         if id is None:
             id = [0, 0]
